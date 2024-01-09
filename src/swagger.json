@@ -1,0 +1,950 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Portaria Gasparim API Documentation",
+        "description": "Nesta documentação você poderá consultar os endpoints da API-Portaria e também testar todas as rotas disponíveis. Não esqueça de se cadastrar e realizar a autorização.",
+        "contact": {
+            "name": "Lucas Milhorança",
+            "url": "https://github.com/lucasmilhoranca",
+            "email": "desenvolvimento2@gasparim.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/",
+            "description": "Local/Development Server"
+        }
+    ],
+    "paths": {
+        "/p/all": {
+            "get": {
+                "sumary": "Search all peoples",
+                "description": "Route responsible for fetching all people",
+                "tags": [
+                    "Pessoa"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pessoa"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/p/{id}": {
+            "get": {
+                "sumary": "Search people by Id",
+                "description": "Route responsible for searching for pearson by Id",
+                "tags": [
+                    "Pessoa"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Pearson ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pessoa"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "p/delete/{id}": {
+            "delete": {
+                "summary": "Delete a Pearson",
+                "description": "Route responsible for deleting a person",
+                "tags": [
+                    "Pessoa"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Pearson ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "Deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Pessoa"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/f/": {
+            "post": {
+                "sumary": "Create a new Funcionário",
+                "description": "Route responsible for creating a new Funcionário",
+                "tags": [
+                    "Funcionario"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Funcionario"
+                            }
+                        },
+                        "examples": {
+                            "Funcionario": {
+                                "value": {
+                                    "cpf": "46580999004",
+                                    "nome": "TesteSwagger",
+                                    "sobrenome": "SwaggerDocs",
+                                    "setor": "Sementes",
+                                    "departamento": "Tecnologia",
+                                    "cargo": "Desenvolvedor Sênior"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/f/{id}": {
+            "patch": {
+                "summary": "Atualiza um funcionário por ID.",
+                "description": "Route responsible for updating an Funcionário",
+                "tags": [
+                    "Funcionario"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Pearson ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Funcionario"
+                            }
+                        },
+                        "examples": {
+                            "Funcionario": {
+                                "value": {
+                                    "cpf": "46580999004",
+                                    "nome": "TesteSwagger",
+                                    "sobrenome": "SwaggerDocs",
+                                    "setor": "Sementes",
+                                    "departamento": "Tecnologia",
+                                    "cargo": "Desenvolvedor Sênior"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c/": {
+            "post": {
+                "sumary": "Create a new Caminhoneiro",
+                "description": "Route responsible for creating a new Caminhoeiro",
+                "tags": [
+                    "Caminhoneiro"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Caminhoneiro"
+                            }
+                        },
+                        "examples": {
+                            "Caminhoneiro": {
+                                "value": {
+                                    "cpf": "68517969022",
+                                    "nome": "TesteSwagger",
+                                    "sobrenome": "SwaggerDocs",
+                                    "setor": "Sementes",
+                                    "departamento": "Tecnologia",
+                                    "placa": "ABC1234",
+                                    "empresa": "Gasparim"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Caminhoneiro"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/c/{id}": {
+            "patch": {
+                "summary": "Atualiza um Caminhoneiro por ID.",
+                "description": "Route responsible for updating an Caminhoneiro",
+                "tags": [
+                    "Caminhoneiro"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Pearson ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Caminhoneiro"
+                            }
+                        },
+                        "examples": {
+                            "Caminhoneiro": {
+                                "value": {
+                                    "cpf": "46580999004",
+                                    "nome": "TesteSwagger",
+                                    "sobrenome": "SwaggerDocs",
+                                    "setor": "Sementes",
+                                    "departamento": "Tecnologia",
+                                    "placa": "ABC1234",
+                                    "empresa": "Gasparim"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Caminhoneiro"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v/": {
+            "post": {
+                "sumary": "Create a new Visitante",
+                "description": "Route responsible for creating a new Visitante",
+                "tags": [
+                    "Visitante"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Visitante"
+                            }
+                        },
+                        "examples": {
+                            "Visitante": {
+                                "value": {
+                                    "cpf": "68517969022",
+                                    "nome": "TesteSwagger",
+                                    "sobrenome": "SwaggerDocs",
+                                    "setor": "Sementes",
+                                    "departamento": "Tecnologia",
+                                    "pessoaResponsavel": "Lucas M"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Visitante"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v/{id}": {
+            "patch": {
+                "summary": "Atualiza um visitante por ID.",
+                "description": "Route responsible for updating an Visitante",
+                "tags": [
+                    "Visitante"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "Pearson ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Visitante"
+                            }
+                        },
+                        "examples": {
+                            "Visitante": {
+                                "value": {
+                                    "cpf": "46580999004",
+                                    "nome": "TesteSwagger",
+                                    "sobrenome": "SwaggerDocs",
+                                    "setor": "Sementes",
+                                    "departamento": "Tecnologia",
+                                    "pessoaResponsavel": "Lucas M"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Visitante"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/": {
+            "post": {
+                "summary": "Autentica um usuário no sistema.",
+                "description": "Route responsible for authenticating a user.",
+                "tags": [
+                    "Auth"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            }
+                        },
+                        "examples": {
+                            "Usuario": {
+                                "value": {
+                                    "usuario": "lucasmilhoranca",
+                                    "password": "gasparim2024"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Login OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "summary": "Retorna todos os usuários.",
+                "description": "Route responsible for fetching all people",
+                "tags": [
+                    "Usuario"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Usuario"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "sumary": "Search user by Id",
+                "description": "Route responsible for searching user by Id",
+                "tags": [
+                    "Usuario"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Usuario"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signup": {
+            "post": {
+                "summary": "Sign up new User",
+                "description": "Route responsible for creating a new User",
+                "tags": [
+                    "Usuario"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            }
+                        },
+                        "examples": {
+                            "Usuario": {
+                                "value": {
+                                    "usuario": "lucasmilhoranca",
+                                    "password": "gasparim2024"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update/{id}": {
+            "patch": {
+                "summary": "Atualiza um usuário pelo ID.",
+                "description": "Route responsible for updating an User",
+                "tags": [
+                    "Usuario"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Usuario"
+                            }
+                        },
+                        "examples": {
+                            "Usuario": {
+                                "value": {
+                                    "usuario": "lucasmilhoranca",
+                                    "password": "gasparim2024"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "201": {
+                        "description": "Updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Usuario"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/delete/{id}": {
+            "delete": {
+                "summary": "Delete a User",
+                "description": "Route responsible for deleting a User",
+                "tags": [
+                    "Usuario"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string",
+                        "description": "User ID",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "Deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Usuario"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/control/": {
+            "get": {
+                "summary": "Search all CheckIn/CheckOuts.",
+                "description": "Route responsible for fetching all checkins/checkouts.",
+                "tags": [
+                    "Controle"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "offset",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Controle"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/control/checkin": {
+            "post": {
+                "summary": "Create a new CheckIn/CheckOut.",
+                "description": "Route responsible for checking in",
+                "tags": [
+                    "Controle"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "Controle": {
+                                    "value": {
+                                        "cpf": "46580999004"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "201": {
+                        "description": "CheckIn Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Controle"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/control/checkout": {
+            "patch": {
+                "summary": "Create a new CheckIn/CheckOut.",
+                "description": "Route responsible for checking in",
+                "tags": [
+                    "Controle"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "Controle": {
+                                    "value": {
+                                        "cpf": "46580999004"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthorized."
+                    },
+                    "201": {
+                        "description": "CheckOut Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Controle"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "Pessoa": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "sobrenome": {
+                        "type": "string"
+                    },
+                    "setor": {
+                        "type": "string"
+                    },
+                    "departamento": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "cargo": {
+                        "type": "string"
+                    },
+                    "placa": {
+                        "type": "string"
+                    },
+                    "empresa": {
+                        "type": "string"
+                    },
+                    "pessoaResponsavel": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Funcionario": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "sobrenome": {
+                        "type": "string"
+                    },
+                    "setor": {
+                        "type": "string"
+                    },
+                    "departamento": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "cargo": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Caminhoneiro": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "sobrenome": {
+                        "type": "string"
+                    },
+                    "setor": {
+                        "type": "string"
+                    },
+                    "departamento": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "placa": {
+                        "type": "string"
+                    },
+                    "empresa": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Visitante": {
+                "type": "object",
+                "properties": {
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "sobrenome": {
+                        "type": "string"
+                    },
+                    "setor": {
+                        "type": "string"
+                    },
+                    "departamento": {
+                        "type": "string"
+                    },
+                    "tipo": {
+                        "type": "string"
+                    },
+                    "pessoaResponsavel": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Controle": {
+                "type": "object",
+                "properties": {
+                    "pessoa": {
+                        "type": "object"
+                    },
+                    "data": {
+                        "type": "string"
+                    },
+                    "horarioEntrada": {
+                        "type": "string"
+                    },
+                    "horarioSaida": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "Usuario": {
+                "type": "object",
+                "properties": {
+                    "usuario": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password"
+                    }
+                }
+            }
+        }
+    }
+}
