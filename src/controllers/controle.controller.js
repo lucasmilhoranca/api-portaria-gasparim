@@ -70,7 +70,7 @@ const findAll = async (req, res) => {
         offset = Number(offset);
 
         if (!limit) {
-            limit = 5;
+            limit = 10;
         }
 
         if (!offset) {
@@ -88,7 +88,7 @@ const findAll = async (req, res) => {
         const previousUrl = previous != null ? `${currentUrl}?limit=${limit}&offset=${previous}` : null;
 
         if (checkOuts.length === 0) {
-            return res.status(404).send({ message: "There are not registred users" });
+            return checkOuts;
         }
 
         res.send({

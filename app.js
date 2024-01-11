@@ -1,6 +1,7 @@
 import express from "express";
 import connectDB from "./src/database/db.js";
 import dotenv from "dotenv";
+import cors from "cors";
 const app = express();
 
 import pessoaRoutes from "./src/routes/pessoa.route.js";
@@ -19,6 +20,7 @@ const port = 3000;
 connectDB.connectRedis()
 connectDB.connectMongo();
 
+app.use(cors());
 app.use(express.json());
 app.use('/p', pessoaRoutes);
 app.use('/f', funcionarioRoutes);
