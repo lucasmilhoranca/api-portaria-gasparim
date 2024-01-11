@@ -16,16 +16,16 @@ Certifique-se de ter os seguintes requisitos instalados em seu ambiente de desen
 
 1. **Clone o repositório**:
 
-```bash
+```
 git clone https://github.com/lucasmilhoranca/api-portaria-gasparim.git
 cd api-controle-portaria
 ```
 
 2. **Instale as dependências:**
 
-    ```bash
-    npm install
-    ```
+```
+npm install
+```
 
 3. **Configure as variáveis de ambiente:**
 
