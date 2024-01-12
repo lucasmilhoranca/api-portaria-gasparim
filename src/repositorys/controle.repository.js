@@ -7,7 +7,7 @@ const checkOutRepository = (id, horarioSaida, status) => Controle.findOneAndUpda
     { horarioSaida, status }
 );
 
-const findAllChecksRepository = (offset, limit) => Controle.find().sort({_id: -1}).skip(offset).limit(limit).populate("pessoa");
+const findAllChecksRepository = (offset, limit) => Controle.find().sort({ _id: -1 }).skip(offset).limit(limit).populate("pessoa");
 
 const findOneCheckRepository = (id) => Controle.findOne({
     pessoa: id,
