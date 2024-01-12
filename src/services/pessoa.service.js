@@ -1,11 +1,43 @@
-import Pessoa from "../models/pessoa.model.js";
+import pessoaRepository from "../repositorys/pessoa.repository.js";
+import { createClient } from "redis";
 
-const findAllPessoaService = () => Pessoa.find();
+const clientRedis = createClient();
 
-const findByIdPessoaService = (id) => Pessoa.findById(id);
+clientRedis.connect();
 
-const findByCpfPessoaService = (cpf) => Pessoa.find({ "cpf": (cpf) });
+const findAllPessoasService = async () => {
+        const pessoasFromCache = await clientRedis.get('getAllPessoas');
 
-const deletePessoaServide = (id) => Pessoa.findOneAndDelete({ _id: id });
+        if (pessoasFromCache) return pessoasFromCache;
 
-export default { findAllPessoaService, findByIdPessoaService, findByCpfPessoaService, deletePessoaServide };
+        const pessoas = await pessoaRepository.findAllPessoasRepository();
+        await clientRedis.set("getAllPessoas", JSON.stringify(pessoas));
+
+
+        if (pessoas.length === 0) throw new Error("There are not registred users");
+
+        // console.log("N peguei do cache");
+        return pessoas;
+}
+
+const findByIdPessoaService = async (id) => {
+    
+        const pessoa = await pessoaRepository.findByIdPessoaRepositoryP(id);
+         
+        if(!pessoa) throw new Error("User not found")
+
+        return pessoa
+}
+
+const deltePessoaService = async (id) => {
+
+        const pessoa = await pessoaRepository.deletePessoaRepository(id);
+
+        if(!pessoa) throw new Error("User was not deleted");
+
+        await clientRedis.del(`getAllPessoas`);
+
+        return { message: "User succesfully delete" };
+}
+
+export default { findAllPessoasService, findByIdPessoaService, deltePessoaService };
