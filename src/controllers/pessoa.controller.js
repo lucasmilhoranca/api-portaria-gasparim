@@ -34,7 +34,7 @@ const deltePessoaController = async (req, res) => {
         res.send(message);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        res.status(404).send({ message: err.message });
     }
 }
 
