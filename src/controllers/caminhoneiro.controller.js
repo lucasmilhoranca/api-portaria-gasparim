@@ -1,44 +1,22 @@
 import caminhoneiroService from '../services/caminhoneiro.service.js';
 import { createClient } from "redis";
-import pessoaService from '../services/pessoa.service.js';
 
 const clientRedis = createClient();
 
 clientRedis.connect();
 
-const createCaminhoneiro = async (req, res) => {
+const createCaminhoneiroController = async (req, res) => {
     try {
         const { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa } = req.body;
 
-        if (!cpf || !nome || !sobrenome || !setor || !departamento || !tipo || !placa || !empresa) {
-            res.status(400).send({ message: "Submit all filds for registration" });
-        }
-
-        const caminhoneiro = await caminhoneiroService.createCaminhoneiroService(req.body);
-
-        if (!caminhoneiro) {
-            return res.status(400).send({ message: "Error creating User" });
-        }
+        const caminhoneiro = await caminhoneiroService.createCaminhoneiroService({ cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa });
 
         await clientRedis.del("getAllPessoas");
 
-        res.status(201).send({
-            message: "User created successfully",
-            caminhoneiro: {
-                id: caminhoneiro._id,
-                cpf: caminhoneiro.cpf,
-                nome: caminhoneiro.nome,
-                sobrenome: caminhoneiro.sobrenome,
-                setor: caminhoneiro.setor,
-                departamento: caminhoneiro.departamento,
-                tipo: caminhoneiro.tipo,
-                placa: caminhoneiro.placa,
-                empresa: caminhoneiro.empresa,
-            },
-        });
+        res.status(201).send(caminhoneiro);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        res.status(404).send({ message: err.message });
     }
 };
 
@@ -73,6 +51,9 @@ const updateCaminhoneiro = async (req, res) => {
     }
 }
 
+
+/*DECRAPTED*/
+/*
 const deleteCaminhoneiro = async (req, res) => {
     try {
         const id = req.params.id;
@@ -87,5 +68,6 @@ const deleteCaminhoneiro = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+*/
 
-export default { createCaminhoneiro, updateCaminhoneiro, deleteCaminhoneiro };
+export default { createCaminhoneiroController, updateCaminhoneiro };

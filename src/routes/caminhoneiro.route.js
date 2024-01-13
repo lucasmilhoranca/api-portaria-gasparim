@@ -4,7 +4,7 @@ import { validId, validUser, validCpf } from "../middlewares/global.middlewares.
 
 const route = Router();
 
-route.post("/", validCpf, caminhoneiroController.createCaminhoneiro);//descomentar quando quiser validar cpf
+route.post("/", validCpf, caminhoneiroController.createCaminhoneiroController);//descomentar quando quiser validar cpf
 route.patch("/:id", validId, validUser, caminhoneiroController.updateCaminhoneiro);
 //route.delete("/delete/:id", validId, validUser, caminhoneiroController.deleteCaminhoneiro)(rota de pessoas)
 

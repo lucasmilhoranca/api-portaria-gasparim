@@ -4,7 +4,7 @@ const findAllPessoasRepository = () => Pessoa.find();
 
 const findByIdPessoaRepositoryP = (id) => Pessoa.findById(id);
 
-const findByCpfPessoaRepository = (cpf) => Pessoa.find({ "cpf": (cpf) });
+const findByCpfPessoaRepository = (cpf) => Pessoa.findOne({ "cpf": (cpf) });
 
 const deletePessoaRepository = (id) => Pessoa.findOneAndDelete({ _id: id });
 
