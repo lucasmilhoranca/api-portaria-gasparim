@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node --no-warnings app.js",
-    "dev": "nodemon --no-warnings app.js"
+    "start": "node --no-warnings server.js",
+    "dev": "nodemon --no-warnings server.js"
   },
   "author": "Lucas Milhorança",
   "type": "module",
