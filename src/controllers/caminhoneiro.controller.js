@@ -1,17 +1,10 @@
 import caminhoneiroService from '../services/caminhoneiro.service.js';
-import { createClient } from "redis";
-
-const clientRedis = createClient();
-
-clientRedis.connect();
 
 const createCaminhoneiroController = async (req, res) => {
     try {
         const { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa } = req.body;
 
         const caminhoneiro = await caminhoneiroService.createCaminhoneiroService({ cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa });
-
-        await clientRedis.del("getAllPessoas");
 
         res.status(201).send(caminhoneiro);
 
@@ -20,19 +13,13 @@ const createCaminhoneiroController = async (req, res) => {
     }
 };
 
-const updateCaminhoneiro = async (req, res) => {
+const updateCaminhoneiroController = async (req, res) => {
     try {
         const { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa } = req.body;
 
-        if (!cpf && !nome && !sobrenome && !setor && !departamento && !tipo && !placa && !empresa) {
-            res.status(400).send({ message: "Submit at least one fild for update" });
-        }
-
         const id = req.params.id;
 
-        await clientRedis.del("getAllPessoas");
-
-        await caminhoneiroService.updateCaminhoneiroService(
+        const updatedCaminhoneiro = await caminhoneiroService.updateCaminhoneiroService(
             id,
             cpf,
             nome,
@@ -44,10 +31,10 @@ const updateCaminhoneiro = async (req, res) => {
             empresa
         );
 
-        res.send({ message: "User succesfully update" });
+        res.status(201).send(updatedCaminhoneiro);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        res.status(400).send({ message: err.message });
     }
 }
 
@@ -60,8 +47,6 @@ const deleteCaminhoneiro = async (req, res) => {
 
         await pessoaService.deletePessoaServide(id);
 
-        await clientRedis.del("getAllPessoas");
-
         res.send({ message: "User succesfully delete" });
 
     } catch (err) {
@@ -70,4 +55,4 @@ const deleteCaminhoneiro = async (req, res) => {
 }
 */
 
-export default { createCaminhoneiroController, updateCaminhoneiro };
+export default { createCaminhoneiroController, updateCaminhoneiroController };

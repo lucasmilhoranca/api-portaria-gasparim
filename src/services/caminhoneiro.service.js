@@ -8,65 +8,60 @@ clientRedis.connect();
 
 const createCaminhoneiroService = async ({ cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa }) => {
 
-    if (!cpf || !nome || !sobrenome || !setor || !departamento || !tipo || !placa || !empresa) throw new Error("Submit all filds for registration");
+  if (!cpf || !nome || !sobrenome || !setor || !departamento || !tipo || !placa || !empresa) throw new Error("Submit all filds for registration");
 
-    const user = await pessoaService.findByCpfPessoaService(cpf);
+  const user = await pessoaService.findByCpfPessoaService(cpf);
 
-    if (user) throw new Error("User already exists");
+  if (user) throw new Error("User already exists");
 
-    const body = { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa }
+  const body = { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa }
 
-    const caminhoneiro = await caminhoneiroRepository.createCaminhoneiroRepository(body);
+  const caminhoneiro = await caminhoneiroRepository.createCaminhoneiroRepository(body);
 
-    if (!caminhoneiro) throw new Error("Error creating User");
+  if (!caminhoneiro) throw new Error("Error creating User");
 
-    await clientRedis.del("getAllPessoas");
+  await clientRedis.del("getAllPessoas");
 
-    return {
-      message: "User created successfully",
-      caminhoneiro: {
-        id: caminhoneiro._id,
-        cpf: caminhoneiro.cpf,
-        nome: caminhoneiro.nome,
-        sobrenome: caminhoneiro.sobrenome,
-        setor: caminhoneiro.setor,
-        departamento: caminhoneiro.departamento,
-        tipo: caminhoneiro.tipo,
-        placa: caminhoneiro.placa,
-        empresa: caminhoneiro.empresa,
-      },
-    };
+  return {
+    message: "User created successfully",
+    caminhoneiro: {
+      id: caminhoneiro._id,
+      cpf: caminhoneiro.cpf,
+      nome: caminhoneiro.nome,
+      sobrenome: caminhoneiro.sobrenome,
+      setor: caminhoneiro.setor,
+      departamento: caminhoneiro.departamento,
+      tipo: caminhoneiro.tipo,
+      placa: caminhoneiro.placa,
+      empresa: caminhoneiro.empresa,
+    },
+  };
 };
 
-const updateCaminhoneiro = async (req, res) => {
-  try {
-    const { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa } = req.body;
+const updateCaminhoneiroService = async (id, cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa ) => {
 
-    if (!cpf && !nome && !sobrenome && !setor && !departamento && !tipo && !placa && !empresa) {
-      res.status(400).send({ message: "Submit at least one fild for update" });
-    }
+  if (!cpf && !nome && !sobrenome && !setor && !departamento && !tipo && !placa && !empresa) throw new Error("Submit at least one fild for update");
 
-    const id = req.params.id;
+  const updatedCaminhoneiro = await caminhoneiroRepository.updateCaminhoneiroRepository(
+    id,
+    cpf,
+    nome,
+    sobrenome,
+    setor,
+    departamento,
+    tipo,
+    placa,
+    empresa
+  );
 
-    await clientRedis.del("getAllPessoas");
+  if (!updatedCaminhoneiro) throw new Error("Error updating User");
 
-    await caminhoneiroService.updateCaminhoneiroService(
-      id,
-      cpf,
-      nome,
-      sobrenome,
-      setor,
-      departamento,
-      tipo,
-      placa,
-      empresa
-    );
+  await clientRedis.del("getAllPessoas");
 
-    res.send({ message: "User succesfully update" });
-
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
+  return {
+    message: "User succesfully update",
+    updatedCaminhoneiro
+  };
 }
 
 /*DECRAPTED*/
@@ -87,4 +82,4 @@ const deleteCaminhoneiro = async (req, res) => {
 }
 */
 
-export default { createCaminhoneiroService, updateCaminhoneiro };
+export default { createCaminhoneiroService, updateCaminhoneiroService };
