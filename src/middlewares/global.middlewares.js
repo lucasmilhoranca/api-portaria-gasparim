@@ -39,7 +39,7 @@ export const validUsuario = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const user = await usuarioService.findByIdUsuariosService(id);
+    const user = await usuarioService.findByIdUserService(id);
 
     if (!user) {
       return res.status(404).send({ message: "User not found" });

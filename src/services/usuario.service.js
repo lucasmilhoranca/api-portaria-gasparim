@@ -1,4 +1,4 @@
-import usuarioRepository from "../repositorys/usuario.repository";
+import usuarioRepository from "../repositorys/usuario.repository.js";
 import bcrypt from "bcrypt";
 
 const createUsuarioService = async ({ usuario, password }) => {
@@ -24,7 +24,7 @@ const createUsuarioService = async ({ usuario, password }) => {
 }
 
 const findAllUsersService = async () => {
-    const usuarios = await usuarioService.findAllUsuariosService();
+    const usuarios = await usuarioRepository.findAllUsuariosRepository();
 
     if (usuarios.length === 0) throw new Error("There are not registred users");
 
@@ -50,7 +50,7 @@ const updateUserService = async (id, usuario, password) => {
 
     const newpassword = await bcrypt.hash(password, 10);
 
-    const user = await usuarioService.updateUsuarioService(
+    const user = await usuarioRepository.updateUsuarioRepository(
         id,
         usuario,
         newpassword,
