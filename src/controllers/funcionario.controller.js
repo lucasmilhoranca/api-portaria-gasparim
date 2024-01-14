@@ -1,47 +1,19 @@
 import funcionarioSevice from "../services/funcionario.service.js";
-import { createClient } from "redis";
-import pessoaService from "../services/pessoa.service.js";
 
-const clientRedis = createClient();
-
-clientRedis.connect();
-
-const createFuncionario = async (req, res) => {
+const createFuncionarioController = async (req, res) => {
     try {
         const { cpf, nome, sobrenome, setor, departamento, tipo, cargo } = req.body;
+        
+        const funcionario = await funcionarioSevice.createFuncionarioService({ cpf, nome, sobrenome, setor, departamento, tipo, cargo });
 
-        if (!cpf || !nome || !sobrenome || !setor || !departamento || !tipo || !cargo) {
-            res.status(400).send({ message: "Submit all filds for registration" });
-        }
-
-        const funcionario = await funcionarioSevice.createFuncionarioService(req.body);
-
-        if (!funcionario) {
-            return res.status(400).send({ message: "Error creating User" });
-        }
-
-        await clientRedis.del("getAllPessoas");
-
-        res.status(201).send({
-            message: "User created successfully",
-            funcionario: {
-                id: funcionario._id,
-                cpf: funcionario.cpf,
-                nome: nome,
-                sobrenome: funcionario.sobrenome,
-                setor: funcionario.setor,
-                departamento: funcionario.departamento,
-                tipo: funcionario.tipo,
-                cargo: funcionario.cargo,
-            },
-        });
+        res.status(201).send(funcionario);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        res.status(404).send({ message: err.message });
     }
 }
 
-const updateFuncionario = async (req, res) => {
+const updateFuncionarioController = async (req, res) => {
     try {
         const { cpf, nome, sobrenome, setor, departamento, tipo, cargo } = req.body;
 
@@ -50,8 +22,6 @@ const updateFuncionario = async (req, res) => {
         }
 
         const id = req.params.id;
-
-        await clientRedis.del("getAllPessoas");
 
         await funcionarioSevice.updateFuncionarioService(
             id,
@@ -71,6 +41,8 @@ const updateFuncionario = async (req, res) => {
     }
 }
 
+/*DECRAPTED*/
+/*
 const deleteFuncionario = async (req, res) => {
     try {
         const id = req.params.id;
@@ -85,5 +57,6 @@ const deleteFuncionario = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+*/
 
-export default { createFuncionario, updateFuncionario, deleteFuncionario };
+export default { createFuncionarioController, updateFuncionarioController };

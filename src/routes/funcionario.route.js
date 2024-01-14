@@ -4,8 +4,8 @@ import { validId, validUser, validCpf } from "../middlewares/global.middlewares.
 
 const route = Router(); 
 
-route.post("/", validCpf, funcionarioController.createFuncionario); //descomentar quando quiser validar cpf
-route.patch("/:id", validId, validUser, funcionarioController.updateFuncionario);
+route.post("/", validCpf, funcionarioController.createFuncionarioController); //descomentar quando quiser validar cpf
+route.patch("/:id", validId, validUser, funcionarioController.updateFuncionarioController);
 //route.delete("/delete/:id", validId, validUser, funcionarioController.deleteFuncionario);(rota de pessoas)
 
 export default route;
