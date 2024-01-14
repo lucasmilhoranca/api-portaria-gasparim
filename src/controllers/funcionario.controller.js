@@ -17,13 +17,9 @@ const updateFuncionarioController = async (req, res) => {
     try {
         const { cpf, nome, sobrenome, setor, departamento, tipo, cargo } = req.body;
 
-        if (!cpf && !nome && !sobrenome && !setor && !departamento && !tipo && !cargo) {
-            res.status(400).send({ message: "Submit at least one fild for update" });
-        }
-
         const id = req.params.id;
 
-        await funcionarioSevice.updateFuncionarioService(
+        const updatedFuncionario = await funcionarioSevice.updateFuncionarioService(
             id,
             cpf,
             nome,
@@ -34,7 +30,7 @@ const updateFuncionarioController = async (req, res) => {
             cargo
         );
 
-        res.send({ message: "User succesfully update" });
+        res.send(updatedFuncionario);
 
     } catch (err) {
         res.status(500).send({ message: err.message });
