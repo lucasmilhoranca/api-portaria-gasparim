@@ -4,7 +4,9 @@ const createUsuarioRepository = (body) => Usuario.create(body);
 
 const findAllUsuariosRepository = () => Usuario.find();
 
-const findByIdUsuariosRepository = (id) => Usuario.findById(id);
+const findByIdUserRepository = (id) => Usuario.findById(id);
+
+const findByUserRepository = (usuario) => Usuario.findOne({ "usuario": usuario });
 
 const updateUsuarioRepository = (id, usuario, password) => Usuario.findByIdAndUpdate(
     { _id: id },
@@ -13,4 +15,4 @@ const updateUsuarioRepository = (id, usuario, password) => Usuario.findByIdAndUp
 
 const deleteUsuarioRepository = (id) => Usuario.findOneAndDelete({ _id: id });
 
-export default { createUsuarioRepository, findAllUsuariosRepository, findByIdUsuariosRepository, updateUsuarioRepository, deleteUsuarioRepository };
+export default { createUsuarioRepository, findAllUsuariosRepository, findByIdUserRepository, findByUserRepository, updateUsuarioRepository, deleteUsuarioRepository };

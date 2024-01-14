@@ -1,16 +1,79 @@
-import Usuario from "../models/usuario.model.js";
+import usuarioRepository from "../repositorys/usuario.repository";
+import bcrypt from "bcrypt";
 
-const createUsuarioService = (body) => Usuario.create(body);
+const createUsuarioService = async ({ usuario, password }) => {
+    if (!usuario || !password) throw new Error("Subimt all fields for registration");
 
-const findAllUsuariosService = () => Usuario.find();
+    const userExists = await usuarioRepository.findByUserRepository(usuario);
 
-const findByIdUsuariosService = (id) => Usuario.findById(id);
+    if (userExists) throw new Error("User already exists");
 
-const updateUsuarioService = (id, usuario, password) => Usuario.findByIdAndUpdate(
-    { _id: id },
-    { usuario, password }
-);
+    const body = { usuario, password };
 
-const deleteUsuarioService = (id) => Usuario.findOneAndDelete({ _id: id });
+    const user = await usuarioRepository.createUsuarioRepository(body);
 
-export default { createUsuarioService, findAllUsuariosService, findByIdUsuariosService, updateUsuarioService, deleteUsuarioService };
+    if (!user) throw new Error("Error creating User");
+
+    return {
+        message: "User created successfully",
+        usuario: {
+            usuario: user.usuario,
+            password: user.password,
+        },
+    };
+}
+
+const findAllUsersService = async () => {
+    const usuarios = await usuarioService.findAllUsuariosService();
+
+    if (usuarios.length === 0) throw new Error("There are not registred users");
+
+    return usuarios;
+}
+
+const findByIdUserService = async (id) => {
+
+    const usuario = await usuarioRepository.findByIdUserRepository(id);
+
+    if (!usuario) throw new Error("User not found");
+
+    return usuario;
+}
+
+const updateUserService = async (id, usuario, password) => {
+
+    if (!usuario && !password) throw new Error("Submit at least one fild for update");
+
+    const userExists = await usuarioRepository.findByIdUserRepository(id);
+
+    if (!userExists) throw new Error("User not found");
+
+    const newpassword = await bcrypt.hash(password, 10);
+
+    const user = await usuarioService.updateUsuarioService(
+        id,
+        usuario,
+        newpassword,
+    );
+
+    return{
+        message: "User succesfully update",
+        user
+    };
+}
+
+const deleteUsuario = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        await usuarioService.deleteUsuarioService(id);
+
+        res.send({ message: "User succesfully delete" });
+
+
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
+export default { createUsuarioService, findAllUsersService, findByIdUserService, updateUserService, deleteUsuario }

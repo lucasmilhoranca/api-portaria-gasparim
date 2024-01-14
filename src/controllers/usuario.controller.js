@@ -1,85 +1,60 @@
 import usuarioService from "../services/usuario.service.js";
 import bcrypt from "bcrypt";
 
-const createUsuario = async (req, res) => {
+const createUsuarioController = async (req, res) => {
     try {
         const { usuario, password } = req.body;
 
-        if (!usuario || !password) {
-            res.status(400).send({ message: "Subimt all fields for registration" });
-        }
+        const user = await usuarioService.createUsuarioService({ usuario, password });
 
-        const user = await usuarioService.createUsuarioService(req.body);
-
-        if (!user) {
-            return res.status(400).send({ message: "Error creating User" });
-        }
-
-        res.status(201).send({
-            message: "User created successfully",
-            usuario: {
-                usuario: user.usuario,
-                password: user.password,
-            },
-        });
+        return res.status(201).send(user);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        return res.status(404).send({ message: err.message });
     }
 }
 
-const findAllUsuarios = async (req, res) => {
+const findAllUsersController = async (req, res) => {
     try {
-        const usuarios = await usuarioService.findAllUsuariosService();
+        const usuarios = await usuarioService.findAllUsersService();
 
-        if (usuarios.length === 0) {
-            return res.status(400).send({ message: "There are not registred users" });
-        }
-
-        res.send(usuarios);
-
+        return res.send(usuarios);
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        return res.status(404).send({ message: err.message });
     }
 }
 
-const findByIdUsuario = async (req, res) => {
+const findByIdUserController = async (req, res) => {
     try {
-        const usuario = req.user;
+        const usuario = await usuarioService.findByIdUserService(req.params.id);
 
         res.send(usuario);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        res.status(404).send({ message: err.message });
     }
 }
 
-const updateUsuario = async (req, res) => {
+const updateUserController = async (req, res) => {
     try {
         const { usuario, password } = req.body;
 
-        if (!usuario && !password) {
-            res.status(400).send({ message: "Submit at least one fild for update" });
-        }
-
         const id = req.params.id;
 
-        const newpassword = await bcrypt.hash(password, 10);
-
-        await usuarioService.updateUsuarioService(
+        const updatedUser = await usuarioService.updateUserService(
             id,
             usuario,
-            newpassword,
+            password,
         );
 
-        res.send({ message: "User succesfully update" });
-
+        res.status(201).send(updatedUser);
 
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        res.status(400).send({ message: err.message });
     }
 }
 
+/*
 const deleteUsuario = async (req, res) => {
     try {
         const id = req.params.id;
@@ -93,5 +68,6 @@ const deleteUsuario = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+*/
 
-export default { createUsuario, findAllUsuarios, findByIdUsuario, updateUsuario, deleteUsuario }
+export default { createUsuarioController, findAllUsersController, findByIdUserController, updateUserController }
