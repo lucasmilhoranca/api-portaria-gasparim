@@ -1,5 +1,5 @@
 import pessoaService from "../services/pessoa.service.js";
-import controleService from "../services/controle.service.js";
+import controleRepository from "../repositorys/controle.repository.js";
 
 export const activeCheckIn = async (req, res, next) => {
     try {
@@ -9,7 +9,7 @@ export const activeCheckIn = async (req, res, next) => {
 
         //console.log(pessoa);
 
-        const checkin = await controleService.findOneService(pessoa[0]._id);
+        const checkin = await controleRepository.findOneCheckRepository(pessoa._id);
 
         //console.log(checkin);
 
@@ -31,7 +31,7 @@ export const activeCheckOut = async (req, res, next) => {
 
         //console.log(pessoa);
 
-        const checkin = await controleService.findOneService(pessoa[0]._id);
+        const checkin = await controleRepository.findOneCheckRepository(pessoa._id);
 
         //console.log(checkin);
 

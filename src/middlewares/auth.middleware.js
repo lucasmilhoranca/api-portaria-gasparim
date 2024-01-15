@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import usuarioService from "../services/usuario.service.js";
+import usuarioRepository from "../repositorys/usuario.repository.js";
 
 dotenv.config();
 
@@ -31,7 +31,7 @@ export const authMiddleware = (req, res, next) => {
             }
             //console.log(decoded);
 
-            const user = await usuarioService.findByIdUsuariosService(decoded.id);
+            const user = await usuarioRepository.findByIdUserRepository(decoded.id);
 
             //console.log(user);
 
