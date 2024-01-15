@@ -1,9 +1,5 @@
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import usuarioRepository from "../repositorys/usuario.repository.js";
-
-dotenv.config();
-
 
 export const authMiddleware = (req, res, next) => {
     try {
