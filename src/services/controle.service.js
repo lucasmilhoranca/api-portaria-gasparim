@@ -1,27 +1,91 @@
-import Controle from "../models/controle.model.js";
+import controleRepository from "../repositorys/controle.repository.js";
+import pessoaService from "../services/pessoa.service.js";
 
-const createCheckInService = (body) => Controle.create(body);
+const checkInService = async (cpf) => {
 
-const updateCheckOutService = (id, horarioSaida, status) => Controle.findOneAndUpdate(
-    { _id: id },
-    { horarioSaida, status }
-);
+    const user = await pessoaService.findByCpfPessoaService(cpf);
 
-const findAllService = (offset, limit) => Controle.find().sort({_id: -1}).skip(offset).limit(limit).populate("pessoa");
+    //console.log(user);
 
-const findOneService = (id) => Controle.findOne({
-    pessoa: id,
-    status: 1
-})
+    if (!user) throw new Error("CPF not found");
 
-const findByIdPessoaService = (id) => Controle.find({ "pessoa": id, "status": 1 });
+    const body = { pessoa: user._id, horarioEntrada: new Date().toLocaleTimeString(), horarioSaida: "" };
 
-const findByStatusTrue = () => Controle.find({ "status": 1 });
+    const checkIn = await controleRepository.checkInRepository(body);
 
-const findByStatusFalse = () => Controle.find({ "status": 0 });
+    if (!checkIn) throw new Error("CheckIn Error");
 
-const countChecksService = () => Controle.countDocuments();
+    return {
+        checkIn,
+        user
+    };
+}
 
-const lasCheckInService = () => Controle.findOne();
+const checkOutService = async (cpf) => {
 
-export default { createCheckInService, updateCheckOutService, findAllService, findOneService, findByIdPessoaService, findByStatusTrue, findByStatusFalse, countChecksService };
+    const user = await pessoaService.findByCpfPessoaService(cpf);
+
+    if (!user) throw new Error("CPF not found");
+
+    const checkIn = await controleRepository.findByIdPessoaRepositoryC(user._id);
+
+    if (!checkIn) throw new Error("CheckIn not found");
+
+    const checkOut = await controleRepository.checkOutRepository(checkIn[0]._id, new Date().toLocaleTimeString(), 0);
+
+    return {
+        message: "CheckOut OK",
+        checkOut,
+        user
+    };
+}
+
+const findAllChecksService = async (offset, limit, currentUrl) => {
+
+    limit = Number(limit);
+    offset = Number(offset);
+
+    if (!limit) {
+        limit = 10;
+    }
+
+    if (!offset) {
+        offset = 0;
+    }
+
+    const checkOuts = await controleRepository.findAllChecksRepository(offset, limit);
+
+    const total = await controleRepository.countChecksRepository();
+
+    const next = offset + limit;
+    const nextUrl = next < total ? `${currentUrl}?limit=${limit}&offset=${next}` : null;
+
+    const previous = offset - limit < 0 ? null : offset - limit;
+    const previousUrl = previous != null ? `${currentUrl}?limit=${limit}&offset=${previous}` : null;
+
+    return {
+        nextUrl,
+        previousUrl,
+        limit,
+        offset,
+        total,
+
+        results: checkOuts.map(newsChecks => ({
+            id: newsChecks._id,
+            cpf: newsChecks.pessoa.cpf,
+            nome: newsChecks.pessoa.nome,
+            sobrenome: newsChecks.pessoa.sobrenome,
+            tipo: newsChecks.pessoa.tipo,
+            data: newsChecks.data,
+            horarioEntrada: newsChecks.horarioEntrada,
+            horarioSaida: newsChecks.horarioSaida,
+            status: newsChecks.status,
+        }))
+    };
+}
+
+const lastCheckInService = async (req, res) => {
+
+}
+
+export default { checkInService, checkOutService, findAllChecksService };

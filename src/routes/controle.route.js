@@ -5,9 +5,9 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const route = Router();
 
-route.get("/", controleController.findAll);
-route.post("/checkin", authMiddleware, activeCheckIn, controleController.checkIn);
-route.patch("/checkout", authMiddleware, activeCheckOut, controleController.checkOut);
+route.get("/", controleController.findAllChecksController);
+route.post("/checkin", authMiddleware, activeCheckIn, controleController.checkInController);
+route.patch("/checkout", authMiddleware, activeCheckOut, controleController.checkOutController);
 
 
 export default route;
