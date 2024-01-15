@@ -4,7 +4,7 @@ import pessoaService from "../services/pessoa.service.js";
 const checkInController = async (req, res) => {
     try {
         const { cpf } = req.body;
-        console.log(cpf)
+
         const checkIn = await controleService.checkInService(cpf);
 
         res.status(201).send(checkIn);
