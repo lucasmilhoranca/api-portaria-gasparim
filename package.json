@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node --no-warnings server.js",
-    "dev": "nodemon --no-warnings server.js"
+    "dev": "nodemon --no-warnings server.js",
+    "test": "vitest"
   },
   "author": "Lucas Milhorança",
   "type": "module",
@@ -21,6 +22,7 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "vitest": "^1.2.0"
   }
 }
