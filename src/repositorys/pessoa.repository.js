@@ -1,11 +1,19 @@
 import Pessoa from "../models/pessoa.model.js";
 
-const findAllPessoasRepository = () => Pessoa.find();
+function findAllPessoasRepository () {
+    return Pessoa.find();
+}
 
-const findByIdPessoaRepositoryP = (id) => Pessoa.findById(id);
+function findByIdPessoaRepositoryP (id) {
+    return Pessoa.findById(id);
+}
 
-const findByCpfPessoaRepository = (cpf) => Pessoa.findOne({ "cpf": (cpf) });
+function findByCpfPessoaRepository (cpf) {
+    return Pessoa.findOne({ "cpf": (cpf) });
+}
 
-const deletePessoaRepository = (id) => Pessoa.findOneAndDelete({ _id: id });
+function deletePessoaRepository (id) {
+    return Pessoa.findOneAndDelete({ _id: id });
+}
 
 export default { findAllPessoasRepository, findByIdPessoaRepositoryP, findByCpfPessoaRepository, deletePessoaRepository };
