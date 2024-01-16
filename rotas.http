@@ -1,0 +1,50 @@
+@user = "lucasmilhoranca"
+@password = "gasparim2024"
+
+###CheckIN/OUT
+
+GET http://localhost:3000/control/
+    ?limit=10
+    &offset=0
+
+###
+
+# @name autenticar
+POST http://localhost:3000/auth/
+Content-Type: application/json
+
+{
+    "usuario": {{user}},
+    "password": {{password}}
+}
+
+###
+
+@token = {{autenticar.response.body.$.token}}
+
+###CheckIN/OUT
+
+POST http://localhost:3000/control/checkin
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "cpf": "68765321575"
+}
+
+###
+
+PATCH http://localhost:3000/control/checkout
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "cpf": "68765321575"
+}
+
+###PESSOAS
+GET http://localhost:3000/p/all
+
+###
+
+GET http://localhost:3000/p/65847c6b8c04958773bda487
