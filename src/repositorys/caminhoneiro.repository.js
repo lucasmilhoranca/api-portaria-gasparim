@@ -1,11 +1,15 @@
 import caminhoneiro from "../models/pessoa.model.js";
 
-const createCaminhoneiroRepository = (body) => caminhoneiro.create(body);
+function createCaminhoneiroRepository(body) {
+  return caminhoneiro.create(body);
+}
 
-const updateCaminhoneiroRepository = (id, cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa) => caminhoneiro.findOneAndUpdate(
-  { _id: id },
-  { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa }
-)
+function updateCaminhoneiroRepository(id, cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa) {
+  return caminhoneiro.findOneAndUpdate(
+    { _id: id },
+    { cpf, nome, sobrenome, setor, departamento, tipo, placa, empresa }
+  )
+}
 
 /*DECRAPTED*/
 //const deleteCaminhoneiroRepository = (id) => caminhoneiro.findOneAndDelete({ _id: id });
