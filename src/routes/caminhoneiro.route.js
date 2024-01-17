@@ -1,6 +1,8 @@
 import { Router } from "express";
-import caminhoneiroController from "../controllers/caminhoneiro.controller.js";
+import CaminhoneiroController from "../controllers/caminhoneiro.controller.js";
 import { validId, validUser, validCpf } from "../middlewares/global.middlewares.js";
+
+const caminhoneiroController = new CaminhoneiroController();
 
 const route = Router();
 
