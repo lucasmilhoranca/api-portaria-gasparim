@@ -1,6 +1,8 @@
 import { Router } from "express";
-import visitanteController from "../controllers/visitante.controller.js";
+import VisitanteController from "../controllers/visitante.controller.js";
 import { validId, validUser, validCpf } from "../middlewares/global.middlewares.js";
+
+const visitanteController = new VisitanteController();
 
 const route = Router();
 
