@@ -16,7 +16,7 @@ const findOneCheckRepository = (id) => Controle.findOne({
 
 const findByIdPessoaRepositoryC = (id) => Controle.find({ "pessoa": id, "status": 1 });
 
-const findChecksByIdPessoaRepository = (id) => Controle.find({ "pessoa": id }).sort({ _id: -1 });
+const findChecksByIdPessoaRepository = (id) => Controle.find({ "pessoa": id }).sort({ _id: -1 }).populate("pessoa");
 
 const findByStatusTrueRepository = () => Controle.find({ "status": 1 });
 

@@ -85,9 +85,24 @@ const findAllChecksService = async (offset, limit, currentUrl) => {
 }
 
 const findChecksByIdService = async (id) => {
-    const checks = controleRepository.findChecksByIdPessoaRepository(id);
 
-    return checks;
+    const checks = await controleRepository.findChecksByIdPessoaRepository(id);
+
+    console.log(checks)
+
+    return {
+        results: checks.map(newsChecks => ({
+            id: newsChecks._id,
+            cpf: newsChecks.pessoa.cpf,
+            nome: newsChecks.pessoa.nome,
+            sobrenome: newsChecks.pessoa.sobrenome,
+            tipo: newsChecks.pessoa.tipo,
+            data: newsChecks.data,
+            horarioEntrada: newsChecks.horarioEntrada,
+            horarioSaida: newsChecks.horarioSaida,
+            status: newsChecks.status,
+        }))
+    };
 }
 
 const lastCheckInService = async (req, res) => {
