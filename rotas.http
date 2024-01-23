@@ -42,6 +42,10 @@ Authorization: Bearer {{token}}
     "cpf": "68765321575"
 }
 
+###Busca Checks Por CPF
+
+GET http://localhost:3000/control/68765321575
+
 ###PESSOAS
 GET http://localhost:3000/p/all
 
