@@ -84,8 +84,14 @@ const findAllChecksService = async (offset, limit, currentUrl) => {
     };
 }
 
+const findChecksByIdService = async (id) => {
+    const checks = controleRepository.findChecksByIdPessoaRepository(id);
+
+    return checks;
+}
+
 const lastCheckInService = async (req, res) => {
 
 }
 
-export default { checkInService, checkOutService, findAllChecksService };
+export default { checkInService, checkOutService, findAllChecksService, findChecksByIdService };

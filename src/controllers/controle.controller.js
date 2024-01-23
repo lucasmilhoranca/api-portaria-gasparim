@@ -41,8 +41,24 @@ const findAllChecksController = async (req, res) => {
     }
 }
 
+const findChecksByCpfController = async (req, res) => {
+    try {
+        const cpf = req.params.cpf;
+
+        const pessoa = await pessoaService.findByCpfPessoaServiceError(cpf);
+
+        const { id } = pessoa;
+
+        const checksByPessoa = await controleService.findChecksByIdService(id);
+
+        return res.send(checksByPessoa);
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+}
+
 const ultimoCheckIn = async (req, res) => {
 
 }
 
-export default { checkInController, checkOutController, findAllChecksController };
+export default { checkInController, checkOutController, findAllChecksController, findChecksByCpfController };

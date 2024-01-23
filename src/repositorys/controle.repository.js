@@ -16,6 +16,8 @@ const findOneCheckRepository = (id) => Controle.findOne({
 
 const findByIdPessoaRepositoryC = (id) => Controle.find({ "pessoa": id, "status": 1 });
 
+const findChecksByIdPessoaRepository = (id) => Controle.find({ "pessoa": id }).sort({ _id: -1 });
+
 const findByStatusTrueRepository = () => Controle.find({ "status": 1 });
 
 const findByStatusFalseRepository = () => Controle.find({ "status": 0 });
@@ -24,4 +26,4 @@ const countChecksRepository = () => Controle.countDocuments();
 
 const lasCheckInRepository = () => Controle.findOne();
 
-export default { checkInRepository, checkOutRepository, findAllChecksRepository, findOneCheckRepository, findByIdPessoaRepositoryC, findByStatusTrueRepository, findByStatusFalseRepository, countChecksRepository };
+export default { checkInRepository, checkOutRepository, findAllChecksRepository, findOneCheckRepository, findByIdPessoaRepositoryC, findChecksByIdPessoaRepository, findByStatusTrueRepository, findByStatusFalseRepository, countChecksRepository };

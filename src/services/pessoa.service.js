@@ -36,6 +36,15 @@ const findByCpfPessoaService = async (cpf) => {
         return pessoa;
 }
 
+const findByCpfPessoaServiceError = async (cpf) => {
+
+        const pessoa = await pessoaRepository.findByCpfPessoaRepository(cpf);
+
+        if(!pessoa) throw new Error("User not found");
+
+        return pessoa;
+}
+
 const deltePessoaService = async (id) => {
 
         const pessoa = await pessoaRepository.deletePessoaRepository(id);
@@ -47,4 +56,4 @@ const deltePessoaService = async (id) => {
         return { message: "User succesfully delete" };
 }
 
-export default { findAllPessoasService, findByIdPessoaService, findByCpfPessoaService, deltePessoaService };
+export default { findAllPessoasService, findByIdPessoaService, findByCpfPessoaService, findByCpfPessoaServiceError, deltePessoaService };

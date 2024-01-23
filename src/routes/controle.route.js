@@ -6,6 +6,7 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 const route = Router();
 
 route.get("/", controleController.findAllChecksController);
+route.get("/:cpf", controleController.findChecksByCpfController)
 route.post("/checkin", authMiddleware, activeCheckIn, controleController.checkInController);
 route.patch("/checkout", authMiddleware, activeCheckOut, controleController.checkOutController);
 
