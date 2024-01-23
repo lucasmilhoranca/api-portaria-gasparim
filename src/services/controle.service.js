@@ -88,8 +88,6 @@ const findChecksByIdService = async (id) => {
 
     const checks = await controleRepository.findChecksByIdPessoaRepository(id);
 
-    console.log(checks)
-
     return {
         results: checks.map(newsChecks => ({
             id: newsChecks._id,
