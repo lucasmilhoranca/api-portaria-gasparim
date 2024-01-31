@@ -34,6 +34,18 @@ export default class UsuarioController {
         }
     }
 
+    async findByIdTokenController(req, res) {
+        try {
+            const id = req.userId;
+
+            const user = await usuarioService.findByIdUserService(id);
+
+            res.send(user);
+        } catch (err) {
+            res.status(404).send({ message: err.message });
+        }
+    }
+
     async updateUserController(req, res) {
         try {
             const { usuario, password } = req.body;
