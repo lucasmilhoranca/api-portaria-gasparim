@@ -103,8 +103,12 @@ const findChecksByIdService = async (id) => {
     };
 }
 
+const findCheckStatusService = async (id) => {
+    
+}
+
 const lastCheckInService = async (req, res) => {
 
 }
 
-export default { checkInService, checkOutService, findAllChecksService, findChecksByIdService };
+export default { checkInService, checkOutService, findAllChecksService, findChecksByIdService, findCheckStatusService };

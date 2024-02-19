@@ -10,7 +10,7 @@ const checkInController = async (req, res) => {
         res.status(201).send(checkIn);
 
     } catch (err) {
-        res.status(400).send({ message: err.message });
+        return res.status(400).send({ message: err.message });
     }
 }
 
@@ -23,7 +23,7 @@ const checkOutController = async (req, res) => {
         res.send(checkOut);
 
     } catch (err) {
-        res.status(404).send({ message: err.message });
+        return res.status(404).send({ message: err.message });
     }
 }
 
@@ -37,7 +37,7 @@ const findAllChecksController = async (req, res) => {
         return res.send(checkOuts);
 
     } catch (err) {
-        res.status(400).send({ message: err.message });
+        return res.status(400).send({ message: err.message });
     }
 }
 
@@ -53,7 +53,23 @@ const findChecksByCpfController = async (req, res) => {
 
         return res.send(checksByPessoa);
     } catch (err) {
-        res.status(400).send({ message: err.message });
+        return res.status(400).send({ message: err.message });
+    }
+}
+
+const findStatusController = async (req, res) => {
+    try {
+        const cpf = req.params.cpf;
+
+        const pessoa = await pessoaService.findByCpfPessoaServiceError(cpf);
+
+        const { id } = pessoa;
+
+        const checkStatus = await controleService.findCheckStatusService(id);
+
+        return res.send(checkStatus);
+    } catch (err) {
+        return res.status(400).send({ message: err.message });
     }
 }
 
@@ -61,4 +77,4 @@ const ultimoCheckIn = async (req, res) => {
 
 }
 
-export default { checkInController, checkOutController, findAllChecksController, findChecksByCpfController };
+export default { checkInController, checkOutController, findAllChecksController, findChecksByCpfController, findStatusController };
