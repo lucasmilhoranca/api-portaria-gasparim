@@ -73,8 +73,4 @@ const findStatusController = async (req, res) => {
     }
 }
 
-const ultimoCheckIn = async (req, res) => {
-
-}
-
 export default { checkInController, checkOutController, findAllChecksController, findChecksByCpfController, findStatusController };

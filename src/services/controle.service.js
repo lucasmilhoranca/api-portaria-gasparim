@@ -5,8 +5,6 @@ const checkInService = async (cpf) => {
 
     const user = await pessoaService.findByCpfPessoaService(cpf);
 
-    //console.log(user);
-
     if (!user) throw new Error("CPF not found");
 
     const body = { pessoa: user._id, horarioEntrada: new Date().toLocaleTimeString(), horarioSaida: "" };
@@ -105,10 +103,6 @@ const findChecksByIdService = async (id) => {
 
 const findCheckStatusService = async (id) => {
     
-}
-
-const lastCheckInService = async (req, res) => {
-
 }
 
 export default { checkInService, checkOutService, findAllChecksService, findChecksByIdService, findCheckStatusService };

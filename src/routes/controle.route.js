@@ -11,5 +11,4 @@ route.get("/:cpf", controleController.findChecksByCpfController)
 route.post("/checkin", authMiddleware, activeCheckIn, controleController.checkInController);
 route.patch("/checkout", authMiddleware, activeCheckOut, controleController.checkOutController);
 
-
 export default route;

@@ -24,6 +24,4 @@ const findByStatusFalseRepository = () => Controle.find({ "status": 0 });
 
 const countChecksRepository = () => Controle.countDocuments();
 
-const lasCheckInRepository = () => Controle.findOne();
-
 export default { checkInRepository, checkOutRepository, findAllChecksRepository, findOneCheckRepository, findByIdPessoaRepositoryC, findChecksByIdPessoaRepository, findByStatusTrueRepository, findByStatusFalseRepository, countChecksRepository };
