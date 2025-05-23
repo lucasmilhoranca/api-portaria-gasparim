@@ -62,22 +62,4 @@ const updateVisitanteService = async (id, cpf, nome, sobrenome, setor, departame
   };
 }
 
-/*DECRAPTED*/
-/*
-const deleteVisitante = async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    await pessoaService.deletePessoaServide(id);
-
-    await clientRedis.del("getAllPessoas");
-
-    res.send({ message: "User succesfully delete" });
-
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-}
-*/
-
 export default { createVisitanteService, updateVisitanteService }

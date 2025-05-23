@@ -11,7 +11,4 @@ function updateCaminhoneiroRepository(id, cpf, nome, sobrenome, setor, departame
   )
 }
 
-/*DECRAPTED*/
-//const deleteCaminhoneiroRepository = (id) => caminhoneiro.findOneAndDelete({ _id: id });
-
 export default { createCaminhoneiroRepository, updateCaminhoneiroRepository };

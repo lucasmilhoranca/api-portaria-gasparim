@@ -11,7 +11,4 @@ function updateFuncionarioRepository(id, cpf, nome, sobrenome, setor, departamen
   );
 }
 
-/*DECRAPTED*/
-//const deleteFuncionarioRepository = (id) => funcionario.findOneAndDelete({ _id: id });
-
 export default { createFuncionarioRepository, updateFuncionarioRepository };

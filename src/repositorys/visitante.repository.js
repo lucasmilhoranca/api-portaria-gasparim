@@ -11,7 +11,4 @@ function updateVisitanteRepository(id, cpf, nome, sobrenome, setor, departamento
   )
 }
 
-/*DECRAPTED*/
-//const deleteVisitanteRepository = (id) => visitante.findOneAndDelete({ _id: id });
-
 export default { createVisitanteRepository, updateVisitanteRepository };
